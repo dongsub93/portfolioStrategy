@@ -24,7 +24,7 @@ def downloadMarketList(marketName:str):
     rawDataDf = pd.read_html(targetUrl,header=0)[0]
     
     marketDf  = rawDataDf.loc[:,['회사명','종목코드']]
-    marketDf.to_csv('./00_data/kospi.csv', encoding='UTF-8-SIG')
+    marketDf.to_csv('./kospi.csv', encoding='UTF-8-SIG')
 
     
 def strToDate(dateStr:str):
