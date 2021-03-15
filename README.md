@@ -21,5 +21,3 @@ Also there are some required libraries.
   - lib1
   - lib2
   - etc
-
-GitHub sync test
