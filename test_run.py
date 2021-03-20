@@ -27,15 +27,14 @@ if __name__ == "__main__":
     #
     # * example of full usage
     # > tempPrice = getPrice(kospiDict['삼성전자'],datetime.date(2020,3,10),datetime.date(2021.3.10))
-    tempPrice = getPrice(kospiDict['삼성전자'])
+    tempPrice = getPrice('069500',datetime.date(1900,1,1))
     print (tempPrice)
 
-    tempPrice.to_csv('./00_data/00_1_pricesData/{code}_{start}_{end}.csv'
-                    .format(code=kospiDict['삼성전자']
-                            ,start=str(datetime.date.today()-datetime.timedelta(days=365))
-                            ,end=str(datetime.date.today()))
+    tempPrice.to_csv('./00_data/00_1_pricesData/{code}_{start}-{end}.csv'
+                    .format(code='069500'
+                            ,start=str(tempPrice.iloc[-1]['날짜'])
+                            ,end=str(tempPrice.iloc[0]['날짜']))
                     , encoding='UTF-8-SIG')
-
     """
         Iteration example over whole dictionary is given below.
 
