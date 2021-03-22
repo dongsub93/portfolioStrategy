@@ -23,14 +23,14 @@ def downloadMarketList(marketName:str):
         _targetUrl = 'http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13&marketType=stockMkt'
         _rawDataDf = pd.read_html(_targetUrl,header=0,converters={'종목코드':str})[0]
         _marketDf  = _rawDataDf.loc[:,['회사명','종목코드']]
-        _marketDf.to_csv('./00_data/00_0_marketList/kospi.csv', encoding='UTF-8-SIG')
+        _marketDf.to_csv('./00_data/0_marketList/kospi.csv', encoding='UTF-8-SIG')
         return True
     except:
         print ('downloadMarketList:Fail to creat the dataFrame from the url : {url}'.format(url=_targetUrl))
         return False
 
 def getMarketDict(marketName:str):
-    _marketList = pd.read_csv('./00_data/00_0_marketList/{market}.csv'.format(market=marketName)\
+    _marketList = pd.read_csv('./00_data/0_marketList/{market}.csv'.format(market=marketName)\
                                 ,dtype=str,index_col=0)
     return dict(zip(_marketList.values[:,0],_marketList.values[:,1]))
     
