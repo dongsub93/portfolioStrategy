@@ -3,7 +3,7 @@ This project aims to implement one's portfolio and to back-test the strategy on 
 
 Authors of the project
 
-  Kim, Hyeontae(email@address.com)
+  Kim, Hyeontae(htkim428@gmail.com)
   Lee, Dongsub(dongsub93@gmail.com)
   
 ----------------------------------
