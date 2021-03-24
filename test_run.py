@@ -12,12 +12,12 @@ if __name__ == "__main__":
     """
         This script demonstrates the usage of defined functions.
     """
-    """####################################################################
+
     # Download the List of the KOSPI.
     # It returns Fails when it fails to download the data, otherwise return True.
     test = downloadMarketList('KOSPI')
     print ('Status of downloading the market data : ',test)
-    # Get dictionary of {'Coorp':'Code'} dictionary.
+    # Get dictionary of {'Corp':'Code'} dictionary.
     # It requires to download the marketList using crawler_v0.downloadMarketList in a priory.
     kospiDict = getMarketDict('kospi')
     print (kospiDict['흥국화재'],type(kospiDict['흥국화재']))
@@ -37,7 +37,7 @@ if __name__ == "__main__":
                             ,start=str(tempPrice.iloc[-1]['날짜'])
                             ,end=str(tempPrice.iloc[0]['날짜']))
                     , encoding='UTF-8-SIG')
-    """####################################################################
+
     """
         Iteration example over whole dictionary is given below.
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
                     ,ETFmarkets == '국내')
     KrBondETF=etfList[bKrBondETF]
     KrBondETFcode = KrBondETF.loc[:,'단축코드'].values
-    """
+
     for code in KrStockETFcode[:5]:
         while len(code) < 6:
             code = '0'+code
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         except:
             print ('Failed to download data for ',code)
             continue
-    """
+    
     # Example implementation of absolute momentum strategy
     import strategies_v0
     from strategies_v0 import absMomentumStrategy

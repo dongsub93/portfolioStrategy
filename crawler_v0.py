@@ -99,7 +99,7 @@ def getPrice(corpCode:str\
 
 def getFiance(corpCode:str):
     """
-        This function returns pandas.DataFrame of financial information of the company having [cooprCode] code in the market.
+        This function returns pandas.DataFrame of financial information of the company having [corpCode] code in the market.
     """
     # Insert below header if one cannot access to the URL page.
     _headers={'User-Agent':\
