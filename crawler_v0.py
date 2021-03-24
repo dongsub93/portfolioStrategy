@@ -1,5 +1,5 @@
 """
-    This code is for crowling the list of coorporates in KOSPI.
+    This code is for crowling the list of corporates in KOSPI.
     It downloads the data from KIND.
     One can get the information of KOSDAQ, by replacing the 'marketType' key from the url.
 """
@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 def downloadMarketList(marketName:str):
     """
         This fuction takes the market name as the argument, band
-        downloads the name of coorporates and their code in marekts.
+        downloads the name of corporates and their code in marekts.
         The downloaded result is saved under ./00_data in CSV format
     """
     try:
@@ -42,18 +42,18 @@ def strToDate(dateStr:str):
     _ymdList = dateStr.rsplit('.')
     return datetime.date(int(_ymdList[0]),int(_ymdList[1]),int(_ymdList[2]))
   
-def getPrice(coorpCode:str\
+def getPrice(corpCode:str\
             , start:datetime.date=datetime.date.today()-datetime.timedelta(days=365)\
             , end:datetime.date=datetime.date.today()):
     """
-        This function downloads the price data of the stock having the 'coorpCode' from NAVER.
+        This function downloads the price data of the stock having the 'corpCode' from NAVER.
         It requires total 3 arguments, (1) code of the stock, (2) the fisrt date and (3) and the last date.
         The first and the last date indicate two edges of time interval in which we want to know its price. 
     """
     # Insert below header if one cannot access to the URL page.
     _headers={'User-Agent':\
              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36'}
-    _naverURL = 'http://finance.naver.com/item/sise_day.nhn?code={code}'.format(code=str(coorpCode))
+    _naverURL = 'http://finance.naver.com/item/sise_day.nhn?code={code}'.format(code=str(corpCode))
 
     # Access to the front page of URL having price information. It would gives the total number of pages of price informations.
     try:
@@ -97,14 +97,14 @@ def getPrice(coorpCode:str\
     # It returns the information in 'pandas.DataFrame' format.
     return _priceDf
 
-def getFiance(coorpCode:str):
+def getFiance(corpCode:str):
     """
         This function returns pandas.DataFrame of financial information of the company having [cooprCode] code in the market.
     """
     # Insert below header if one cannot access to the URL page.
     _headers={'User-Agent':\
              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.190 Safari/537.36'}
-    _naverURL = 'http://finance.naver.com/item/main.nhn?code={code}'.format(code=str(coorpCode))
+    _naverURL = 'http://finance.naver.com/item/main.nhn?code={code}'.format(code=str(corpCode))
     # Access to the front page of URL having price information. It would gives the total number of pages of price informations.
     try:
         _queResult= requests.get(_naverURL,headers=_headers)
