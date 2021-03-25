@@ -2,7 +2,7 @@ import sys,os
 import datetime
 from datetime import date
 from datetime import timedelta
-import crawler_v0
+from .. import crawler_v0
 from crawler_v0 import *
 import pandas as pd
 import numpy as np
@@ -81,23 +81,23 @@ class absMomentumStrategy:
             
     def verbInitialCond(self):
         print ('Storage path : ',self.storageDir)
-        print ('bond data    : ',self.storageDir+'/1_bondETF/{code}.csv'.format(code=self.bondCode))
-        print ('stock data   : ',self.storageDir+'/0_stockETF/{code}.csv'.format(code=self.stockCode))
+        print ('bond data    : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.bondCode))
+        print ('stock data   : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.stockCode))
 
     def setStoragePath(self,storageDir:str):
         print ('Set storage path : ',storageDir)
         self.stroageDir = storageDir
     
     def loadHistory(self):
-        print ('Trying to load bond data  : '+self.storageDir+'/1_bondETF/{code}.csv'.format(code=self.bondCode))
+        print ('Trying to load bond data  : '+self.storageDir+'/0_ETF/{code}.csv'.format(code=self.bondCode))
         try:
-            self.bondData = pd.read_csv(self.storageDir+'/1_bondETF/{code}.csv'.format(code=self.bondCode) ,encoding='utf-8',dtype='str',index_col=0)
+            self.bondData = pd.read_csv(self.storageDir+'/0_ETF/{code}.csv'.format(code=self.bondCode) ,encoding='utf-8',dtype='str',index_col=0)
         except:
             print ('Cannot load bond data.')
             return False
-        print ('Trying to load stock data : '+self.storageDir+'/0_stockETF/{code}.csv'.format(code=self.stockCode))
+        print ('Trying to load stock data : '+self.storageDir+'/0_kETF/{code}.csv'.format(code=self.stockCode))
         try:
-            self.stockData= pd.read_csv(self.storageDir+'/0_stockETF/{code}.csv'.format(code=self.stockCode),encoding='utf-8',dtype='str',index_col=0)
+            self.stockData= pd.read_csv(self.storageDir+'/0_ETF/{code}.csv'.format(code=self.stockCode),encoding='utf-8',dtype='str',index_col=0)
         except:
             print ('Cannot load stock data.')
             return False

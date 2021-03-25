@@ -12,7 +12,7 @@ if __name__ == "__main__":
     """
         This script demonstrates the usage of defined functions.
     """
-
+    """#######################################################
     # Download the List of the KOSPI.
     # It returns Fails when it fails to download the data, otherwise return True.
     test = downloadMarketList('KOSPI')
@@ -32,12 +32,12 @@ if __name__ == "__main__":
     tempPrice = getPrice('069500',start=datetime.date(2020,1,1))
     print (tempPrice)
     
-    tempPrice.to_csv('./00_data/1_pricesData/{code}_{start}-{end}.csv'
+    tempPrice.to_csv('./00_data/1_pricesData/1_stock/{code}_{start}-{end}.csv'
                     .format(code='069500'
                             ,start=str(tempPrice.iloc[-1]['날짜'])
                             ,end=str(tempPrice.iloc[0]['날짜']))
                     , encoding='UTF-8-SIG')
-
+    """#######################################################
     """
         Iteration example over whole dictionary is given below.
 
@@ -45,7 +45,7 @@ if __name__ == "__main__":
         print ('Download the price data of {company}(code={code}'.\
                 format(company=key,code=value))
         tempPrice = getPrice(value)
-        tempPrice.to_csv('./00_data/00_1_pricesData/{code}_{start}_{end}.csv'
+        tempPrice.to_csv('./00_data/1_pricesData/1_stock/{code}_{start}_{end}.csv'
                          .format(code=kospiDict['삼성전자']
                                  ,start=str(datetime.date.today()-datetime.timedelta(days=365))
                                  ,end=str(datetime.date.today()))
@@ -75,13 +75,13 @@ if __name__ == "__main__":
                     ,ETFmarkets == '국내')
     KrBondETF=etfList[bKrBondETF]
     KrBondETFcode = KrBondETF.loc[:,'단축코드'].values
-
+    """#######################################################
     for code in KrStockETFcode[:5]:
         while len(code) < 6:
             code = '0'+code
         try:
             priceDf = getPrice(code,datetime.date(1900,1,1))
-            priceDf.to_csv('./00_data/1_pricesData/0_stockETF/{code}.csv'.format(code=code)\
+            priceDf.to_csv('./00_data/1_pricesData/0_ETF/{code}.csv'.format(code=code)\
                             ,encoding='UTF-8-SIG')
         except:
             print ('Failed to download data for ',code)
@@ -92,26 +92,41 @@ if __name__ == "__main__":
             code = '0'+code
         try:
             priceDf = getPrice(code,datetime.date(1900,1,1))
-            priceDf.to_csv('./00_data/1_pricesData/1_bondETF/{code}.csv'.format(code=code)\
+            priceDf.to_csv('./00_data/1_pricesData/0_ETF/{code}.csv'.format(code=code)\
                    ,encoding='UTF-8-SIG')
         except:
             print ('Failed to download data for ',code)
             continue
-    
+    """#######################################################
     # Example implementation of absolute momentum strategy
-    import strategies_v0
-    from strategies_v0 import absMomentumStrategy
+    import strategies.absMomentum_v1
+    from strategies.absMomentum_v1 import absMomentumStrategy
     print ([KrBondETFcode[0],KrStockETFcode[0]])
     test0 = absMomentumStrategy()
     test0.setStoragePath('./00_data/1_pricesData/')
-    test0.initialisePortfolio(initDate=datetime.date(1900,1,1),rebalPeriod=datetime.timedelta(days=7),initVal=100000000,bondCode=KrBondETFcode[0],stockCode=KrStockETFcode[0],storageDir='./00_data/1_pricesData',allowFrac=False)
+    test0.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,bondCode=KrBondETFcode[0],stockCode=KrStockETFcode[0]\
+                            ,storageDir='./00_data/1_pricesData'\
+                            ,allowFrac=False)
     test0.verbInitialCond()
+#    sys.exit(0)
+#    test0.elapse(interval=datetime.timedelta(days=365))
+    test0.verbStatus()
+    test0History = test0.getHistory(start=datetime.date(2019,11,2),end=datetime.date(2021,3,20))
     
-    test0.elapse(interval=datetime.timedelta(days=365))
-    print ('date       : ', test0.date)
-    print ('total value: ', test0.portfolioValue, '(initial value : {iv}({r}))'.format(iv=test0.initVal,r=-1+test0.portfolioValue/test0.initVal))
-    print ('# stock    : ', test0.nStock,'(total stock price = {p})'.format(p = test0.stock))
-    print ('# bond     : ', test0.nBond,'(total bond price = {p})'.format(p=test0.bond))
-    print ('total cash : ', test0.cash)
+    print (test0History[0:20])
+
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import aux_functions
+    from aux_functions import *
+
+    test_fig, test_ax = drawHistory(test0History)
+    plt.savefig('./example_result.png',dpi=test_fig.dpi, bbox_inches='tight')
+
+
     sys.exit(0)
 
