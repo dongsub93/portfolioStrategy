@@ -81,8 +81,8 @@ class absMomentumStrategy:
         self.bond = 0
         self.cash = self.portfolioValue - self.nStock*_initStockPrice
         
-        self.stockReturns = np.array([])
-        self.bondReturns  = np.array([])
+        self.stockReturns = np.array([1.])
+        self.bondReturns  = np.array([1.])
         self.datesFromLastRebal = datetime.timedelta(days=0)
         self.history.loc[0] = [self.initDate, self.initVal, self.stock, self.bond\
                               ,self.nStock, self.nBond, _initStockPrice, _initBondPrice\
@@ -162,9 +162,9 @@ class absMomentumStrategy:
                     _indxStock = np.where(_stockDates == self.date)[0]
                     _indxBond  = np.where(_bondDates == self.date)[0]
             self.stockReturns = np.append(self.stockReturns\
-                                            ,self.stockData.iloc[_indxStock[0]]['종가']/self.stockData.iloc[_indxStock[0]-1]['종가']-1)
+                                            ,self.stockData.iloc[_indxStock[0]]['종가']/self.stockData.iloc[_indxStock[0]+1]['종가'])
             self.bondReturns = np.append(self.bondReturns\
-                                            ,self.bondData.iloc[_indxBond[0]]['종가']/self.bondData.iloc[_indxBond[0]-1]['종가']-1)
+                                            ,self.bondData.iloc[_indxBond[0]]['종가']/self.bondData.iloc[_indxBond[0]+1]['종가'])
             
             self.stock = self.nStock * self.stockData.iloc[_indxStock[0]]['종가']
             self.bond  = self.nBond * self.bondData.iloc[_indxBond[0]]['종가']
@@ -200,16 +200,16 @@ class absMomentumStrategy:
         self.datesFromLastRebal = datetime.timedelta(days=0)
         _rebalScopeLen = int(np.ceil(self.rebalPeriod/datetime.timedelta(days=1)))
         if self.nStock == 0 \
-            and np.prod(1+self.stockReturns[len(self.stockReturns)-_rebalScopeLen:len(self.stockReturns)])\
-                    > np.prod(1+self.bondReturns[len(self.bondReturns)-_rebalScopeLen:len(self.bondReturns)]):
+            and np.prod(self.stockReturns[len(self.stockReturns)-_rebalScopeLen:len(self.stockReturns)])\
+                    > np.prod(self.bondReturns[len(self.bondReturns)-_rebalScopeLen:len(self.bondReturns)]):
             if self.allowFrac:
                 self.nStock = self.portfolioValue/_stockPriceToday
             else:
                 self.nStock = np.floor(self.portfolioValue/_stockPriceToday)
                 self.nBond  = 0
         if self.nBond == 0 \
-            and np.prod(1+self.stockReturns[len(self.stockReturns)-_rebalScopeLen:len(self.stockReturns)])\
-                    < np.prod(1+self.bondReturns[len(self.bondReturns)-_rebalScopeLen:len(self.bondReturns)]):
+            and np.prod(self.stockReturns[len(self.stockReturns)-_rebalScopeLen:len(self.stockReturns)])\
+                    < np.prod(self.bondReturns[len(self.bondReturns)-_rebalScopeLen:len(self.bondReturns)]):
             if self.allowFrac:
                 self.nBond = self.portfolioValue/_bondPriceToday
             else:
