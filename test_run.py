@@ -125,10 +125,27 @@ if __name__ == "__main__":
     from aux_functions import *
 
     test0_fig, test0_ax = drawHistory(test0History)
-    plt.savefig('./example_test0.png',dpi=test0_fig.dpi, bbox_inches='tight')
+    plt.savefig('./99_tempOutput/example_test0.png',dpi=test0_fig.dpi, bbox_inches='tight')
 
     import strategies.momentum_v0
     from strategies.momentum_v0 import momentumStrategy
+    test0new = momentumStrategy()
+    test0new.setStoragePath('./00_data/1_pricesData/')
+    test0new.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,rebalScope =datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,assetCodes=[KrBondETFcode[0],KrStockETFcode[0]]
+                            ,assetWeights=[1.0,0.0]
+                            ,storageDir='./00_data/1_pricesData'\
+                            ,allowFrac=False)
+    test0new.verbInitialCond()
+    test0new.verbStatus()
+    test0newHistory = test0new.getHistory(start=datetime.date(2019,11,2),end=datetime.date(2021,3,20))
+    test0new.verbStatus()
+    test0new_fig, test0new_ax = drawHistory(test0newHistory)
+    plt.savefig('./99_tempOutput/example_test0new.png',dpi=test0new_fig.dpi, bbox_inches='tight')
+    
     test1 = momentumStrategy()
     test1.setStoragePath('./00_data/1_pricesData/')
     test1.initialisePortfolio(initDate=datetime.date(1900,1,1)\
@@ -144,6 +161,6 @@ if __name__ == "__main__":
     test1History = test1.getHistory(start=datetime.date(2019,11,2))
     test1.verbStatus()
     test1_fig, test1_ax = drawHistory(test1History)
-    plt.savefig('./example_test1.png',dpi=test1_fig.dpi, bbox_inches='tight')
+    plt.savefig('./99_tempOutput/example_test1.png',dpi=test1_fig.dpi, bbox_inches='tight')
     sys.exit(0)
 
