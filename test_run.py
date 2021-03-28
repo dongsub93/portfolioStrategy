@@ -124,9 +124,26 @@ if __name__ == "__main__":
     import aux_functions
     from aux_functions import *
 
-    test_fig, test_ax = drawHistory(test0History)
-    plt.savefig('./example_result.png',dpi=test_fig.dpi, bbox_inches='tight')
+    test0_fig, test0_ax = drawHistory(test0History)
+    plt.savefig('./example_test0.png',dpi=test0_fig.dpi, bbox_inches='tight')
 
-
+    import strategies.momentum_v0
+    from strategies.momentum_v0 import momentumStrategy
+    test1 = momentumStrategy()
+    test1.setStoragePath('./00_data/1_pricesData/')
+    test1.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,rebalScope =datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,assetCodes=[KrBondETFcode[0],KrStockETFcode[0],KrStockETFcode[1]]
+                            ,assetWeights=[0.5,0.3,0.2]
+                            ,storageDir='./00_data/1_pricesData'\
+                            ,allowFrac=False)
+    test1.verbInitialCond()
+    test1.verbStatus()
+    test1History = test1.getHistory(start=datetime.date(2019,11,2))
+    test1.verbStatus()
+    test1_fig, test1_ax = drawHistory(test1History)
+    plt.savefig('./example_test1.png',dpi=test1_fig.dpi, bbox_inches='tight')
     sys.exit(0)
 
