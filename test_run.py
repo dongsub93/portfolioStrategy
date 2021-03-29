@@ -75,8 +75,8 @@ if __name__ == "__main__":
                     ,ETFmarkets == '국내')
     KrBondETF=etfList[bKrBondETF]
     KrBondETFcode = KrBondETF.loc[:,'단축코드'].values
-    """#######################################################
-    for code in KrStockETFcode[:5]:
+    
+    for code in KrStockETFcode[:10]:
         while len(code) < 6:
             code = '0'+code
         try:
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         except:
             print ('Failed to download data for ',code)
             continue
-
+    """#######################################################
     for code in KrBondETFcode[:5]:
         while len(code) < 6:
             code = '0'+code
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     from strategies.absMomentum_v1 import absMomentumStrategy
     print ([KrBondETFcode[0],KrStockETFcode[0]])
     test0 = absMomentumStrategy()
-    test0.setStoragePath('./00_data/1_pricesData/')
+    test0.setStoragePath('./00_data/1_pricesData/0_ETF')
     test0.initialisePortfolio(initDate=datetime.date(1900,1,1)\
                             ,rebalPeriod=datetime.timedelta(days=7)\
                             ,initVal=100000000\
@@ -130,14 +130,14 @@ if __name__ == "__main__":
     import strategies.momentum_v0
     from strategies.momentum_v0 import momentumStrategy
     test0new = momentumStrategy()
-    test0new.setStoragePath('./00_data/1_pricesData/')
+    test0new.setStoragePath('./00_data/1_pricesData/0_ETF')
     test0new.initialisePortfolio(initDate=datetime.date(1900,1,1)\
                             ,rebalPeriod=datetime.timedelta(days=7)\
                             ,rebalScope =datetime.timedelta(days=7)\
                             ,initVal=100000000\
                             ,assetCodes=[KrBondETFcode[0],KrStockETFcode[0]]
                             ,assetWeights=[1.0,0.0]
-                            ,storageDir='./00_data/1_pricesData'\
+                            ,storageDir='./00_data/1_pricesData/0_ETF'\
                             ,allowFrac=False)
     test0new.verbInitialCond()
     test0new.verbStatus()
@@ -147,14 +147,14 @@ if __name__ == "__main__":
     plt.savefig('./99_tempOutput/example_test0new.png',dpi=test0new_fig.dpi, bbox_inches='tight')
     
     test1 = momentumStrategy()
-    test1.setStoragePath('./00_data/1_pricesData/')
+    test1.setStoragePath('./00_data/1_pricesData/0_ETF')
     test1.initialisePortfolio(initDate=datetime.date(1900,1,1)\
                             ,rebalPeriod=datetime.timedelta(days=7)\
                             ,rebalScope =datetime.timedelta(days=7)\
                             ,initVal=100000000\
                             ,assetCodes=[KrBondETFcode[0],KrStockETFcode[0],KrStockETFcode[1]]
                             ,assetWeights=[0.5,0.3,0.2]
-                            ,storageDir='./00_data/1_pricesData'\
+                            ,storageDir='./00_data/1_pricesData/0_ETF'\
                             ,allowFrac=False)
     test1.verbInitialCond()
     test1.verbStatus()
@@ -162,5 +162,58 @@ if __name__ == "__main__":
     test1.verbStatus()
     test1_fig, test1_ax = drawHistory(test1History)
     plt.savefig('./99_tempOutput/example_test1.png',dpi=test1_fig.dpi, bbox_inches='tight')
+
+    import strategies.modifiedMomentum_v0
+    from strategies.modifiedMomentum_v0 import modifiedMomentumStrategy
+    import strategies.fixedWeights_v0
+    from strategies.fixedWeights_v0 import fixedWeightsStrategy
+
+    test2 = momentumStrategy()
+    test2.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,rebalScope =datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,assetCodes=[KrBondETFcode[2],KrStockETFcode[3],KrStockETFcode[4]\
+                                        ,KrStockETFcode[5],KrStockETFcode[6],KrStockETFcode[7]]\
+                            ,assetWeights=[0.5,0.2,0.1\
+                                        ,0.05,0.03,0.02]\
+                            ,storageDir='./00_data/1_pricesData/0_ETF'\
+                            ,allowFrac=False)
+    test2.verbStatus()
+    test2History = test2.getHistory(start=datetime.date(2019,11,2))
+    test2_fig, test2_ax = drawHistory(test2History)
+    plt.savefig('./99_tempOutput/example_test2.png',dpi=test2_fig.dpi, bbox_inches='tight')
+
+    test3 = modifiedMomentumStrategy()
+    test3.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,rebalScope =datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,assetCodes=[KrBondETFcode[2],KrStockETFcode[3],KrStockETFcode[4]\
+                                        ,KrStockETFcode[5],KrStockETFcode[6],KrStockETFcode[7]]
+                            ,storageDir='./00_data/1_pricesData/0_ETF'\
+                            ,allowFrac=False)
+    test3.verbStatus()
+    test3History = test3.getHistory(start=datetime.date(2019,11,2))
+    test3_fig, test3_ax = drawHistory(test3History)
+    plt.savefig('./99_tempOutput/example_test3.png',dpi=test3_fig.dpi, bbox_inches='tight')
+                            
+
+    test4 = fixedWeightsStrategy()
+    test4.initialisePortfolio(initDate=datetime.date(1900,1,1)\
+                            ,rebalPeriod=datetime.timedelta(days=7)\
+                            ,rebalScope =datetime.timedelta(days=7)\
+                            ,initVal=100000000\
+                            ,assetCodes=[KrBondETFcode[2],KrStockETFcode[3],KrStockETFcode[4]\
+                                        ,KrStockETFcode[5],KrStockETFcode[6],KrStockETFcode[7]]
+                            ,assetWeights=[0.17,0.17,0.17\
+                                        ,0.17,0.16,0.16]
+                            ,storageDir='./00_data/1_pricesData/0_ETF'\
+                            ,allowFrac=False)
+    test4.verbStatus()
+    test4History = test4.getHistory(start=datetime.date(2019,11,2))
+    test4_fig, test4_ax = drawHistory(test4History)
+    plt.savefig('./99_tempOutput/example_test4.png',dpi=test4_fig.dpi, bbox_inches='tight')
+
     sys.exit(0)
 

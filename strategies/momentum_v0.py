@@ -152,7 +152,7 @@ class momentumStrategy:
         self.assetData = {}
         for asset in self.assetCodes:
             try:
-                self.assetData[asset] = pd.read_csv(self.storageDir+'/0_ETF/{code}.csv'.format(code=asset)\
+                self.assetData[asset] = pd.read_csv(self.storageDir+'/{code}.csv'.format(code=asset)\
                                                     ,encoding='utf-8',dtype='str',index_col=0)
             except:
                 raise ValueError('[momentumStrategy:loadHistory] Cannot load price data of asset : {a}'.format(a=asset))

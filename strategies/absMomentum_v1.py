@@ -91,8 +91,8 @@ class absMomentumStrategy:
     
     def verbInitialCond(self):
         print ('Storage path : ',self.storageDir)
-        print ('bond data    : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.bondCode))
-        print ('stock data   : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.stockCode))
+        print ('bond data    : ',self.storageDir+'/{code}.csv'.format(code=self.bondCode))
+        print ('stock data   : ',self.storageDir+'/{code}.csv'.format(code=self.stockCode))
         print ('Initial value: ',self.initVal)
         print ('Initial date : ',self.initDate)
         print ('Rebal. period: ',self.rebalPeriod.days,' days')
@@ -105,8 +105,8 @@ class absMomentumStrategy:
         _stockPriceToday = self.stockData.iloc[np.where(self.stockData['날짜'].values == self.date)[0][0]]['종가']
         _bondPriceToday  = self.bondData.iloc[np.where(self.bondData['날짜'].values == self.date)[0][0]]['종가']
         print ('Storage path : ',self.storageDir)
-        print ('bond data    : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.bondCode))
-        print ('stock data   : ',self.storageDir+'/0_ETF/{code}.csv'.format(code=self.stockCode))
+        print ('bond data    : ',self.storageDir+'/{code}.csv'.format(code=self.bondCode))
+        print ('stock data   : ',self.storageDir+'/{code}.csv'.format(code=self.stockCode))
         print ('Current date : ',str(self.date))
         print ('Current value: ',self.portfolioValue,'(initial value : {i}({r}\%))'.format(i=self.initVal,r=100.0*self.portfolioValue/self.initVal))
         print ('# Stock/Bond : {ns}/{nb}'.format(ns=self.nStock,nb=self.nBond))
