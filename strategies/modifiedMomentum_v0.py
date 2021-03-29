@@ -7,27 +7,16 @@ from crawler_v0 import *
 import pandas as pd
 import numpy as np
 
-class momentumStrategy:
+class modifiedMomentumStrategy:
     def __init__(self, initDate:datetime.date = datetime.date.today()\
                             ,initVal:float = 0\
                             ,assetCodes=[]\
-                            ,assetWeights=[]\
                             ,rebalPeriod:datetime.timedelta = datetime.timedelta(days=1)\
                             ,rebalScope:datetime.timedelta = datetime.timedelta(days=1)\
                             ,allowFrac:bool=True, storageDir:str=None):
-        if len(assetCodes) != len(assetWeights):
-            raise ValueError('[momentumStrategy:__init__] lentgh of weights({lw}) is not matched with the number of assets({na}.'\
-                             .format(lw=len(assetWeights), na=len(assetCodes)))
         self.initDate      = initDate
         self.initVal       = initVal
         self.assetCodes    = assetCodes
-        self.assetWeights  = assetWeights
-        if len(assetWeights) != 0 and  abs(sum(self.assetWeights)-1.0) > 1e-5:
-            print ('[momentumStrategy:__init__]Sum of weights is not 1. Normalise it to have unit-sum.')
-            _sumWeights = sum(self.assetWeights)
-            for i in range(len(self.assetWeights)):
-                self.assetWeights[i] = self.assetWeights[i]/_sumWeights
-            print ('[momentumStrategy:__init__] Renormalised weights : ',self.assetWeights,' (sum = {s})'.format(s=sum(self.assetWeights)))
         self.rebalPeriod   = rebalPeriod
         self.rebalScope    = rebalScope
         self.allowFrac     = allowFrac
@@ -56,24 +45,12 @@ class momentumStrategy:
     def initialisePortfolio(self, initDate:datetime.date = datetime.date.today()\
                             ,initVal:float = 0\
                             ,assetCodes=[]\
-                            ,assetWeights=[]\
                             ,rebalPeriod:datetime.timedelta = datetime.timedelta(days=1)\
                             ,rebalScope:datetime.timedelta = datetime.timedelta(days=1)\
                             ,allowFrac:bool=True, storageDir:str=None):
-        if len(assetCodes) != len(assetWeights):
-            raise ValueError('[momentumStrategy:initialisePortfolio] lentgh of weights({lw}) is not matched with the number of assets({na}.'\
-                             .format(lw=len(assetWeights), na=len(assetCodes)))
         self.initDate      = initDate
         self.initVal       = initVal
         self.assetCodes    = assetCodes
-        self.assetWeights  = assetWeights
-        if abs(sum(self.assetWeights)-1.0) > 1e-5:
-            print ('[momentumStrategy:initialisePortfolio]Sum of weights is not 1. Normalise it to have unit-sum.')
-            _sumWeights = sum(self.assetWeights)
-            for i in range(len(self.assetWeights)):
-                self.assetWeights[i] = self.assetWeights[i]/_sumWeights
-            print ('[momentumStrategy:initialisePortfolio] Renormalised weights : ',self.assetWeights,' (sum = {s})'.format(s=sum(self.assetWeights)))
-        
         self.rebalPeriod   = rebalPeriod
         self.rebalScope    = rebalScope
         self.allowFrac     = allowFrac
@@ -105,11 +82,11 @@ class momentumStrategy:
             for assetData in self.assetData.values():
                 _initDates = np.append(_initDates, assetData.iloc[-1]['날짜'])
             if self.initDate < max(_initDates):
-                print ('[momentumStrategy:initialisePortfolio]Initial point is even prior to the head of the data. Replace it with ',str(max(_initDates)))
+                print ('[modifiedMomentumStrategy:initialisePortfolio]Initial point is even prior to the head of the data. Replace it with ',str(max(_initDates)))
                 self.initDate = max(_initDates)
                 self.date     = self.initDate
         except ValueError:
-            print ('[momentumStrategy:loadHistory]Cannot find the price data. Set the path to the storage first.')
+            print ('[modifiedMomentumStrategy:loadHistory]Cannot find the price data. Set the path to the storage first.')
             return False
         
         _initPrices = dict([(asset, assetData.loc[assetData['날짜']==self.initDate].iloc[0]['종가']) for asset, assetData in self.assetData.items()])
@@ -118,13 +95,11 @@ class momentumStrategy:
         self.nAssets = {}
         self.tAssets = {}
         self.returns = {}
-        _it = 0
         for asset,price in _initPrices.items():
             if self.allowFrac:
-                self.nAssets[asset] = self.initVal*self.assetWeights[_it]/price
+                self.nAssets[asset] = self.initVal/(price*float(len(self.assetCodes)))
             else:
-                self.nAssets[asset] =float(np.floor(self.initVal*self.assetWeights[_it]/price))
-            _it += 1
+                self.nAssets[asset] =float(np.floor(self.initVal/(price*float(len(self.assetCodes)))))
             self.tAssets[asset] = self.nAssets[asset]*price
             self.returns[asset] = np.array([1.])
         self.cash = self.portfolioValue - sum(self.tAssets.values())
@@ -155,7 +130,7 @@ class momentumStrategy:
                 self.assetData[asset] = pd.read_csv(self.storageDir+'/0_ETF/{code}.csv'.format(code=asset)\
                                                     ,encoding='utf-8',dtype='str',index_col=0)
             except:
-                raise ValueError('[momentumStrategy:loadHistory] Cannot load price data of asset : {a}'.format(a=asset))
+                raise ValueError('[modifiedMomentumStrategy:loadHistory] Cannot load price data of asset : {a}'.format(a=asset))
             for i in range(len(self.assetData[asset])):
                 self.assetData[asset].iloc[i]['날짜'] = strToDate(self.assetData[asset].iloc[i]['날짜'])
             self.assetData[asset][['종가','시가','거래량']] = self.assetData[asset][['종가','시가','거래량']].apply(pd.to_numeric)
@@ -166,7 +141,6 @@ class momentumStrategy:
         print ('-'*40)
         print ('Storage path : ',self.storageDir)
         print ('asset codes  : ',self.assetCodes)
-        print ('asset weights: ',self.assetWeights)
         print ('Initial value: ',self.initVal)
         print ('Initial date : ',self.initDate)
         print ('Rebal. period: ',self.rebalPeriod.days,' days')
@@ -207,14 +181,14 @@ class momentumStrategy:
         _assetDates = dict([(key,_df['날짜'].values) for key, _df in self.assetData.items() ])
         while _elapsed < interval:
             if any(self.date + datetime.timedelta(days=1) > _dates[0] for _dates in _assetDates.values() ):
-                print ('[momentumStrategy:elapse] Stop passing time. It reached to the end of the data.')
+                print ('[modifiedMomentumStrategy:elapse] Stop passing time. It reached to the end of the data.')
                 return True
             else:
                 self.date = self.date + datetime.timedelta(days=1)
             _assetIndx = dict([(asset, np.where(_assetDates[asset]==self.date)[0]) for asset in self.assetCodes ])
             while any(len(_indexes) == 0 for _indexes in _assetIndx.values() ):
                 if any(self.date + datetime.timedelta(days=1) > _dates[0] for _dates in _assetDates.values() ):
-                    print ('[momentumStrategy:elapse] Stop passing time. It reached to the end of the data.')
+                    print ('[modifiedMomentumStrategy:elapse] Stop passing time. It reached to the end of the data.')
                     return True
                 else:
                     self.date = self.date + datetime.timedelta(days=1)
@@ -256,29 +230,36 @@ class momentumStrategy:
         _avgReturns = dict([ (_asset, np.prod(_returns[max(0,len(_returns)-_rebalScopeLen):len(_returns)]))\
                              for _asset, _returns in self.returns.items() ])
         _avgReturns = dict(sorted(_avgReturns.items(), key=lambda x:x[1], reverse=True))
+        _assetWeights = dict([ ( _asset, max(_avgReturns-1.0,0)) for _asset, _avgReturns in _avgReturns.items() ])
+        _sumWeights = sum(_assetWeights.values())
+        if sum(_assetWeights.values())  == 0:
+            print ('[modifiedMomentumStrategy:doRebalance] All assets shows negative returns in the scope. It will reblance tomorrow.')
+            self.datesFromLastRebal = self.rebalPeriod - datetime.timedelta(days=1)
+            return True
         
-        _rank = 0
         for asset in _avgReturns.keys():
             if self.allowFrac:
-                self.nAssets[asset] = self.portfolioValue*self.assetWeights[_rank]/_assetPricesToday[asset]
+                self.nAssets[asset] = self.portfolioValue*_assetWeights[asset]/(_assetPricesToday[asset]*_sumWeights)
+                #self.nAssets[asset] = self.portfolioValue*(_assetWeights[asset]/sum(_assetWeights.values()))/_assetPricesToday[asset]
             else:
-                self.nAssets[asset] = np.floor(self.portfolioValue*self.assetWeights[_rank]/_assetPricesToday[asset])
-            _rank += 1
+                self.nAssets[asset] = np.floor(self.portfolioValue*_assetWeights[asset]/(_assetPricesToday[asset]*_sumWeights))
+                #self.nAssets[asset] = np.floor(self.portfolioValue*(_assetWeights[asset]/sum(_assetWeights.values()))/_assetPricesToday[asset])
             self.tAssets[asset] = self.nAssets[asset]*_assetPricesToday[asset]
         self.cash = self.portfolioValue - sum(self.tAssets.values())
+        return True
         
     def getHistory(self, start=None, end:datetime.date=datetime.date.today()):
         if start == None  or start < self.history['date'].values[0]:
             start = self.history['date'].values[0]
         if start > end:
-            print ('[momentumStrategy:getHistory]The argument indicating the last date of the history is prior than start date. Switching them.')
+            print ('[modifiedMomentumStrategy:getHistory]The argument indicating the last date of the history is prior than start date. Switching them.')
             buffer = start
             start = end
             end = buffer
             del buffer
         self.initialisePortfolio(initDate = self.initDate\
                                  ,initVal = self.initVal\
-                                 ,assetCodes = self.assetCodes , assetWeights = self.assetWeights\
+                                 ,assetCodes = self.assetCodes\
                                  ,rebalPeriod= self.rebalPeriod, rebalScope   = self.rebalScope\
                                  ,allowFrac  = self.allowFrac  , storageDir   = self.storageDir)
         self.elapse(end - self.initDate)
@@ -286,7 +267,7 @@ class momentumStrategy:
         _indxStart = np.where(_historyDates == start)[0]
         while len(_indxStart) == 0:
             if start - datetime.timedelta(days=1) < _historyDates[0]:
-                print ('[momentumStrategy:getHistory] There is no day included in the interval.')
+                print ('[modifiedMomentumStrategy:getHistory] There is no day included in the interval.')
                 return None
             else:
                 start = start - datetime.timedelta(days=1)
@@ -294,7 +275,7 @@ class momentumStrategy:
         _indxEnd = np.where(_historyDates == end)[0]
         while len(_indxEnd) == 0:
             if end - datetime.timedelta(days=1) < start:
-                print ('[momentumStrategy:getHistory] There is no day included in the interval.')
+                print ('[modifiedMomentumStrategy:getHistory] There is no day included in the interval.')
                 return None
             else:
                 end = end - datetime.timedelta(days=1)
