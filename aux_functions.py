@@ -21,8 +21,6 @@ def drawHistory(data:pd.DataFrame):
     _ax.legend(loc='upper left')
     _fig.autofmt_xdate(rotation=45)
     return _fig, _ax
-<<<<<<< HEAD
-
 
 def getMDD(data:pd.DataFrame, asset:str='portfolioValue', start:datetime.date=None, end:datetime.date=None):
     if asset != 'portfolioValue':
@@ -63,7 +61,3 @@ def getMDD(data:pd.DataFrame, asset:str='portfolioValue', start:datetime.date=No
     _mddStartIndx = np.argmen(_drops,axis=0)[0]
     [_mdd, _mddEndIndx ] = _drops[_mddStartIndx]
     return 100.0 - 100.0*_mdd, _dates[_mddStartIndx], _dates[int(_mddEndIndx)]
-
-
-=======
->>>>>>> 01668c1c90d73eeb67daf66e51730060082e8a79
