@@ -75,7 +75,7 @@ if __name__ == "__main__":
                     ,ETFmarkets == '국내')
     KrBondETF=etfList[bKrBondETF]
     KrBondETFcode = KrBondETF.loc[:,'단축코드'].values
-    
+    """#######################################################
     for code in KrStockETFcode[:10]:
         while len(code) < 6:
             code = '0'+code
@@ -86,7 +86,6 @@ if __name__ == "__main__":
         except:
             print ('Failed to download data for ',code)
             continue
-    """#######################################################
     for code in KrBondETFcode[:5]:
         while len(code) < 6:
             code = '0'+code
@@ -195,6 +194,7 @@ if __name__ == "__main__":
                             ,allowFrac=False)
     test3.verbStatus()
     test3History = test3.getHistory(start=datetime.date(2019,11,2))
+    print (test3History[:20])
     test3_fig, test3_ax = drawHistory(test3History)
     plt.savefig('./99_tempOutput/example_test3.png',dpi=test3_fig.dpi, bbox_inches='tight')
                             
