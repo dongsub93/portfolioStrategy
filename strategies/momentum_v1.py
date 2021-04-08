@@ -186,7 +186,7 @@ class momentumStrategy:
     def verbStatus(self):
         _pVals = self.history['portfolioValue'].values
         _drops = np.array([[np.min(_pVals[i:])/_pVals[i],i+np.argmin(_pVals[i:])] for i in range(len(_pVals))])
-        [_maxDrop, _maxDropIndx] = _drops[np.argmin(_drops,axis=0)[0]]
+        [_mdd, _mddIndx] = _drops[np.argmin(_drops,axis=0)[0]]
         _assetPricesToday = {}
         for asset, assetData in self.assetData.items():
             _assetPricesToday[asset] = assetData.loc[assetData['날짜']==self.date].iloc[0]['종가']
@@ -201,10 +201,10 @@ class momentumStrategy:
                       ,a=100.0*(1.0-pow(self.portfolioValue/self.initVal,252.0/float(len(self.history))))
                      )\
               )
-        print ('Max.Drow Down:  {md:3.3f}%(from {a} to {b})'\
-               .format(md=100.0*(1.0-_maxDrop)\
+        print ('Max.Drawdown :  {md:3.3f}%(from {a} to {b})'\
+               .format(md=100.0*(1.0-_mdd)\
                        ,a=self.history.iloc[np.argmin(_drops,axis=0)[0]]['date']\
-                       ,b=self.history.iloc[int(_maxDropIndx)]['date'])\
+                       ,b=self.history.iloc[int(_mddIndx)]['date'])\
               )
         print ('Inventory')
         for asset in self.assetCodes:

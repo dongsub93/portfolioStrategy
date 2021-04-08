@@ -53,11 +53,11 @@ def getMDD(data:pd.DataFrame, asset:str='portfolioValue', start:datetime.date=No
         else:
             start = start - datetime.timedelta(days=1)
             _indxEnd = np.where(_dates == end)[0]
-    _dates = daat.iloc[_indxStart[0]:_indxEnd[0]+1]['date'].values
-    _prices= daat.iloc[_indxStart[0]:_indxEnd[0]+1][asset].values
+    _dates = data.iloc[_indxStart[0]:_indxEnd[0]+1]['date'].values
+    _prices= data.iloc[_indxStart[0]:_indxEnd[0]+1][asset].values
     _drops = np.array([[np.min(_prices[i:])/_prices[i],i+np.argmin(_prices[i:])]\
                         for i in range(len(_prices))
                         ])
-    _mddStartIndx = np.argmen(_drops,axis=0)[0]
+    _mddStartIndx = np.argmin(_drops,axis=0)[0]
     [_mdd, _mddEndIndx ] = _drops[_mddStartIndx]
     return 100.0 - 100.0*_mdd, _dates[_mddStartIndx], _dates[int(_mddEndIndx)]
