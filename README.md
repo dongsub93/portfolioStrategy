@@ -21,3 +21,5 @@ Also there are some required libraries.
   - lib1
   - lib2
   - etc
+
+Statistical data : http://ecos.bok.or.kr/flex/EasySearch.jsp?langGubun=K&topCode=060Y001

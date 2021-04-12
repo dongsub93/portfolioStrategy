@@ -34,14 +34,6 @@ def getMarketDict(marketName:str):
                                 ,dtype=str,index_col=0)
     return dict(zip(_marketList.values[:,0],_marketList.values[:,1]))
     
-def strToDate(dateStr:str):
-    """
-        It returns the the date in 'datetime.date' class from the argument which is the date string in
-        'yyyy.mm.dd'
-    """
-    _ymdList = dateStr.rsplit('.')
-    return datetime.date(int(_ymdList[0]),int(_ymdList[1]),int(_ymdList[2]))
-  
 def getPrice(corpCode:str\
             , start:datetime.date=datetime.date.today()-datetime.timedelta(days=365)\
             , end:datetime.date=datetime.date.today()):
