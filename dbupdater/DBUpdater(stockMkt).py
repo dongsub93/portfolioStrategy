@@ -11,7 +11,7 @@ class DBUpdater:
     def __init__(self):
         """Connect MariaDB and create stock code dictionary"""
 
-        self.conn = pymysql.connect(host='', user='', password='', db='', charset='utf8')
+        self.conn = pymysql.connect(host='', user='', passord='', db='', charset='utf8')
 
         with self.conn.cursor() as curs:
             sql = """
