@@ -22,7 +22,18 @@ class DBUpdater:
                 PRIMARY KEY (code))
             """
             curs.execute(sql)
-            
+            sql="""
+            CREATE TABLE IF NOT EXISTS daily_price (
+                code VARCHAR(20),
+                date DATE,
+                open BIGINT(20),
+                high BIGINT(20),
+                low BIGINT(20),
+                close BIGINT(20),
+                volume BIGINT(20),
+                PRIMARY KEY (code, date))
+            """
+            curs.execute(sql)
         self.conn.commit()
         self.codes = dict()
 
@@ -36,7 +47,7 @@ class DBUpdater:
 
     def read_krx_code(self):
         """read public company list from KRX and convert it to DataFrame"""
-        url = 'http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13&marketType=stockMkt'
+        url = 'http://kind.krx.co.kr/corpgeneral/corpList.do?method=download&searchType=13'
         krx = pd.read_html(url, header=0)[0]
         krx = krx[['종목코드','회사명']]
         krx = krx.rename(columns={'종목코드':'code','회사명':'company'})
@@ -109,38 +120,20 @@ class DBUpdater:
         """replace stock price in DB"""
         with self.conn.cursor() as curs:
             for r in df.itertuples():
-
-                sql="""
-                CREATE TABLE IF NOT EXISTS daily_price (
-                    date DATE,
-                    open BIGINT(20),
-                    high BIGINT(20),
-                    low BIGINT(20),
-                    close BIGINT(20),
-                    volume BIGINT(20),
-                    PRIMARY KEY (date))
-                """
-                sql = sql.replace('daily_price', 'daily_price_{}_{}'.format(code, company))
-                curs.execute(sql)
-
-                sql = f"REPLACE INTO daily_price VALUES ('{r.date}', {r.open}, {r.high}, {r.low}, {r.close}, {r.volume})"
-                sql = sql.replace('daily_price', 'daily_price_{}_{}'.format(code, company))
+                sql = f"REPLACE INTO daily_price VALUES ('{code}', '{r.date}', {r.open}, {r.high}, {r.low}, {r.close}, {r.volume})"
                 curs.execute(sql)
             self.conn.commit()
-            print('[{}] #{:04d} {} ({}) : {} rows > REPLACE INTO daily_price_{}_{} [OK]'.format(datetime.now().strftime('%Y-%m-%d %H:%M'), num+1, company, code, len(df), code, company))
+            print('[{}] #{:04d} {} ({}) : {} rows > REPLACE INTO daily_price [OK]'.format(datetime.now().strftime('%Y-%m-%d %H:%M'), num+1, company, code, len(df)))
 
 
 
     def update_daily_price(self, pages_to_fetch):
         """read_naver and replace_into_db"""
         for idx, code in enumerate(self.codes):
-            
-
             df = self.read_naver(code, self.codes[code], pages_to_fetch)
             if df is None:
                 continue
             self.replace_into_db(df, idx, code, self.codes[code])
-
 
     def execute_daily(self):
         """update daily_price table when launched and at 4:00 PM"""
