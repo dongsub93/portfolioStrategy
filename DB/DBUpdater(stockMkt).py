@@ -4,8 +4,15 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 from threading import Timer
 import json
+import os
 
-with open('env.json', 'r') as f:
+path = os.path.dirname(os.path.abspath(__file__))
+
+
+
+
+
+with open(path+'/../env.json', 'r') as f:
     config = json.load(f)
 
 host = config['dbprivate']["host"]
@@ -148,11 +155,11 @@ class DBUpdater:
         """update daily_price table when launched and at 4:00 PM"""
         self.update_comp_info()
         try:
-            with open('config.json', 'r') as in_file:
+            with open(path+'/config.json', 'r') as in_file:
                 config = json.load(in_file)
                 pages_to_fetch = config['pages_to_fetch']
         except FileNotFoundError:
-            with open('config.json', 'w') as out_file:
+            with open(path+'/config.json', 'w') as out_file:
                 pages_to_fetch = 1000
                 config = {'pages_to_fetch': 1}
                 json.dump(config, out_file)
