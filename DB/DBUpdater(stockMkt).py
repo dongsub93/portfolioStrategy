@@ -3,6 +3,15 @@ import pymysql, calendar, time, json, requests
 from datetime import datetime
 from bs4 import BeautifulSoup
 from threading import Timer
+import json
+
+with open('env.json', 'r') as f:
+    config = json.load(f)
+
+host = config['dbprivate']["host"]
+user = config['dbprivate']["user"]
+password = config['dbprivate']["password"]
+db = config['dbprivate']["db"]
 
 
 
@@ -11,7 +20,7 @@ class DBUpdater:
     def __init__(self):
         """Connect MariaDB and create stock code dictionary"""
 
-        self.conn = pymysql.connect(host='', user='', password='', db='', charset='utf8')
+        self.conn = pymysql.connect(host=host, user=user, password=password, db=db, charset='utf8')
 
         with self.conn.cursor() as curs:
             sql = """
