@@ -4,14 +4,17 @@ from datetime import datetime
 from datetime import timedelta
 import re
 import json
+import os
 
-with open('env.json', 'r') as f:
+path = os.path.dirname(os.path.abspath(__file__))
+
+with open(path+'/../env.json', 'r') as f:
     config = json.load(f)
 
-host = config['dbprivate']["host"]
-user = config['dbprivate']["user"]
-password = config['dbprivate']["password"]
-db = config['dbprivate']["db"]
+host = config['private']["host"]
+password = config['private']["password"]
+db = config['private']['user']
+user = config['private']["db"]
 
 
 class pricereader:
