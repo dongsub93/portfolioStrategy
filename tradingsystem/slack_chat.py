@@ -17,18 +17,18 @@ channel = config['private']["channel"]
 
 
 
-def postMessage(message):
+def post_message(message):
     response = requests.post("https://slack.com/api/chat.postMessage",
         headers={"Content-Type":"application/json", "Authorization": "Bearer "+token},
         data=json.dumps({"channel": channel,"text": message})
     )
 
-def sendSlackChat(message):
+def send_slack_chat(message):
     print(datetime.now().strftime('[%m/%d %H:%M:%S]'), message)
     strbuf = datetime.now().strftime('[%m/%d %H:%M:%S] ') + message
-    postMessage(strbuf)
+    post_message(strbuf)
 
 
-def printlog(message, *args):
+def print_log(message, *args):
     print(datetime.now().strftime('[%m/%d %H:%M:%S]'), message, *args)
 

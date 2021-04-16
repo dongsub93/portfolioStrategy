@@ -23,7 +23,7 @@ db = config['private']["db"]
 
 
 
-class DBUpdater:
+class dbUpdater:
     def __init__(self):
         """Connect MariaDB and create stock code dictionary"""
 

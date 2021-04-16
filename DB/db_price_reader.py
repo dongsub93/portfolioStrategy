@@ -17,7 +17,7 @@ db = config['private']['user']
 user = config['private']["db"]
 
 
-class pricereader:
+class priceReader:
     def __init__(self):
         """Connect MariaDB and create stock code dictionary"""
         self.conn=pymysql.connect(host=host, user=user, password=password, db=db, charset='utf8')
