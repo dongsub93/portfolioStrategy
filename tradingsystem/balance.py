@@ -60,3 +60,5 @@ def get_balance(code):
     else:
         stock_name = cp_code.CodeToName(code)
         return stock_name, 0
+
+print(get_balance('A005930'))

@@ -1,5 +1,6 @@
 import ctypes
 import win32com.client
+from win32com.client import *
 import balance
 
 cpt_util = win32com.client.Dispatch("CpTrade.CpTdUtil")
@@ -47,6 +48,6 @@ def order(position, code, amount, price, condition=None):
     rq = cpt_order.BlockRequest()
 
     stock_name = balance.get_balance(code)[0]
-    print('order: ' + position + ' ' + str(amount) + ' shares of ' + stock_name + '(' + str(code) ') at ' + str(price) + ' (price). -> ', rq )
+    print('order: ' + position + ' ' + str(amount) + ' shares of ' + stock_name + '(' + str(code) + ') at ' + str(price) + ' (price). -> ', rq )
 
-order('long','A035720',1,'market')
+order('long','A005930',1,'market')

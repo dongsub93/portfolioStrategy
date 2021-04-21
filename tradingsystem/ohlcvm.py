@@ -22,7 +22,7 @@ def check_creon_system():
     
     return True
 
-def get_ohlcvs(code, qty):
+def get_ohlcvm(code, qty):
     """return daily open, high, low, close, volume (monetary unit), market capitalization of the stock (code) for the most recent qty unit period."""
     cp_ohlc.SetInputValue(0, code)                    # stock code
     cp_ohlc.SetInputValue(1, ord('2'))                # 1: given interval (unit: day), 2: most recent periods (unit: variable)
@@ -43,4 +43,4 @@ def get_ohlcvs(code, qty):
     df = pd.DataFrame(rows, columns=columns, index=index)
     return df
 
-print(get_ohlcvs('A035720',20))
+print(get_ohlcvm('A035720',20))
