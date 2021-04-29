@@ -12,8 +12,10 @@ import time, datetime
 from pandas import Series, DataFrame
 from bs4 import BeautifulSoup
 
+def crawler_version():
+    return '0.0.1'
 
-def downloadMarketList(marketName:str):
+def get_market_list(marketName:str):
     """
         This fuction takes the market name as the argument, band
         downloads the name of corporates and their code in marekts.
@@ -26,15 +28,10 @@ def downloadMarketList(marketName:str):
         _marketDf.to_csv('./00_data/0_marketList/kospi.csv', encoding='UTF-8-SIG')
         return True
     except:
-        print ('downloadMarketList:Fail to creat the dataFrame from the url : {url}'.format(url=_targetUrl))
+        print ('get_market_list:Fail to creat the dataFrame from the url : {url}'.format(url=_targetUrl))
         return False
 
-def getMarketDict(marketName:str):
-    _marketList = pd.read_csv('./00_data/0_marketList/{market}.csv'.format(market=marketName)\
-                                ,dtype=str,index_col=0)
-    return dict(zip(_marketList.values[:,0],_marketList.values[:,1]))
-    
-def getPrice(corpCode:str\
+def get_price(corpCode:str\
             , start:datetime.date=datetime.date.today()-datetime.timedelta(days=365)\
             , end:datetime.date=datetime.date.today()):
     """
@@ -51,7 +48,7 @@ def getPrice(corpCode:str\
     try:
         _queResult= requests.get(_naverURL,headers=_headers)
     except Exception:
-        print ('getPrice:Request to the URL failed. (URL = {url})'.format(url=_naverURL))
+        print ('get_price:Request to the URL failed. (URL = {url})'.format(url=_naverURL))
         return 0
     _htmlResult = BeautifulSoup(_queResult.text,'lxml')
     # Try to find the number of page.
@@ -61,7 +58,7 @@ def getPrice(corpCode:str\
                     .a.get('href').rsplit('&')[1] \
                     .rsplit('=')[1]#
     except Exception:
-        print ('getPrice:HTML code from the URL has no related contents.')
+        print ('get_price:HTML code from the URL has no related contents.')
         return 0
 
     _priceDf = pd.DataFrame()
@@ -73,13 +70,13 @@ def getPrice(corpCode:str\
             _queResult = requests.get(_pageURL,headers=_headers)
             _tempDf = pd.read_html(str(BeautifulSoup(_queResult.text,'lxml').find('table')),header=0)[0].dropna()
         except Exception:
-            print ('getPrice:Cannot load page {page} from URL {url}'.format(page=_page,url=_naverURL))
+            print ('get_price:Cannot load page {page} from URL {url}'.format(page=_page,url=_naverURL))
             return 0
         # Reject the data outside the time interval [date.start,date.end]
         _Imin,_Imax = 0,_tempDf.shape[0]
-        while strToDate(_tempDf.iloc[_Imin]['날짜'])>end and _Imin < _Imax-1:
+        while str_to_date(_tempDf.iloc[_Imin]['날짜'])>end and _Imin < _Imax-1:
             _Imin += 1
-        while strToDate(_tempDf.iloc[_Imax-1]['날짜'])<start and _Imax > _Imin+1:
+        while str_to_date(_tempDf.iloc[_Imax-1]['날짜'])<start and _Imax > _Imin+1:
             _Imax -= 1
 
         _priceDf = pd.concat([_priceDf,_tempDf.iloc[_Imin:_Imax]],ignore_index=True)
@@ -89,7 +86,7 @@ def getPrice(corpCode:str\
     # It returns the information in 'pandas.DataFrame' format.
     return _priceDf
 
-def getFiance(corpCode:str):
+def get_finance(corpCode:str):
     """
         This function returns pandas.DataFrame of financial information of the company having [corpCode] code in the market.
     """
@@ -101,10 +98,9 @@ def getFiance(corpCode:str):
     try:
         _queResult= requests.get(_naverURL,headers=_headers)
     except Exception:
-        print ('getFinance:Request to the URL failed. (URL = {url})'.format(url=_naverURL))
+        print ('get_finance:Request to the URL failed. (URL = {url})'.format(url=_naverURL))
         return 0
     _htmlResult = BeautifulSoup(_queResult.content,'html.parser')
-    #return _htmlResult
     # Try to find the number of page.
     try:
         _contents = _htmlResult.select('div.section.cop_analysis div.sub_section')[0]
@@ -112,7 +108,7 @@ def getFiance(corpCode:str):
         _indexes= np.array([ x.get_text().strip() for x in _contents.select('th.h_th2')][3:])
         _finData= np.array([ x.get_text().strip() for x in _contents.select('td')])
     except Exception:
-        print ('getFinance:Cannot parse URL to the HTML.')
+        print ('get_finance:Cannot parse URL to the HTML.')
         return 0
     _dateLabels = _theads[3:int((len(_theads)-3)/2)+3]
     for i in range(len(_dateLabels)):
