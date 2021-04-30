@@ -12,7 +12,7 @@ from aux_functions import str_to_date
 from aux_functions import verbose
 
 class portfolio:
-	"""
+    """
 		class of three portfolio strategeies
 			* dependencies
 				- basic modules(os, sys, datetime.date, datetim.timedetla)
@@ -110,13 +110,13 @@ class portfolio:
 
 	def init_portfolio(self, init_date:date = date.today()\
 						   , init_val:float = 0.\
-                 		   , tax_rate:float = 0.0\
+						   , tax_rate:float = 0.0\
 						   , assets=[]\
 						   , weights=[]\
 						   , rebal_period:td = td(days=1)\
 						   , rebal_gauge:td = td(days=1)\
 						   , lookback_period:td = td(days=1)\
-       					   , storage_dir:str = None\
+						   , storage_dir:str = None\
 						   , risk_free_rate:str = None\
 						   , mode:str = 'backtest'\
 						   , allow_frac:bool = False\
