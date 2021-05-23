@@ -11,6 +11,7 @@ import urllib, requests
 import time, datetime
 from pandas import Series, DataFrame
 from bs4 import BeautifulSoup
+from aux_functions import str_to_date
 
 def crawler_version():
     return '0.0.1'

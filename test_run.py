@@ -11,7 +11,7 @@ import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from aux_functions import *
-from strategies.portfolio import portfolio
+from portfolio import portfolio
 
 if __name__ == "__main__":
     """

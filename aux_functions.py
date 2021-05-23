@@ -1,13 +1,12 @@
 import pandas as pd
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import datetime
 
 
 def aux_functions_version():
-    return '5.0.0'
+    return '6.1.0'
 
 def str_to_date(date:str):
     """
@@ -31,21 +30,53 @@ def str_to_date(date:str):
     else:
         raise ValueError('[str_to_date] Input string({str}) has more than year/month/day.'.format(str=date))
 
-def draw_history(data:pd.DataFrame):
+def draw_history(data:pd.DataFrame, time_scales:list=[1]):
     cols  = data.columns
     n_asset= int((len(cols)-6)/3)
     dates  = data.iloc[:,0].values
     p_vals = data.iloc[:,1].values
     b_vals = data.iloc[:,-3].values
     prices = data.iloc[:,range(2*n_asset+2,3*n_asset+2)].values
-    fig, ax = plt.subplots(1,1,sharex=True,figsize=(10,4))
-    ax.plot_date(x = dates ,y=p_vals, fmt='-k',marker=None,label=cols[1])
-    ax.plot_date(x = dates ,y=b_vals, fmt='--k',marker=None,label=cols[-3])
+    fig, axes = plt.subplots(1+len(time_scales),1,sharex=True,figsize=(10,4+4*len(time_scales)))
+    fig.tight_layout()
+    axes[0].plot_date(x = dates ,y=p_vals, fmt='-k',marker=None,label=cols[1])
+    axes[0].plot_date(x = dates ,y=b_vals, fmt='--r',marker=None,label=cols[-3])
     for i in range(n_asset):
-        ax.plot_date(x = dates , y = (p_vals[0]/prices [0,i])*prices [:,i],fmt='-',label=cols[2*n_asset+2+i])
-    ax.legend(loc='center left', bbox_to_anchor=(1, 0.5))
+        axes[0].plot_date(x = dates , y = (p_vals[0]/prices [0,i])*prices [:,i],fmt='-',label=cols[2*n_asset+2+i],alpha=0.3)
+    axes[0].legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    
+    p_returns = [np.array([1.])]*len(time_scales)
+    b_returns = [np.array([1.])]*len(time_scales)
+    starts  = np.array(time_scales)
+    counters= np.ones(len(time_scales))
+    
+    for day in range(1,len(p_vals)):   
+        for it, scale in enumerate(time_scales):
+            if not counters[it] < scale:
+                starts[it]  = day
+                counters[it]= 0
+            
+            if day < scale:
+                p_returns[it] = np.append(p_returns[it],1.0)
+                b_returns[it] = np.append(b_returns[it],1.0)
+            else:
+                if starts[it] < len(p_vals):
+                    p_returns[it] = np.append(p_returns[it]\
+                                            ,p_vals[starts[it]]/p_vals[starts[it]-int(scale)]\
+                                             )
+                    b_returns[it] = np.append(b_returns[it]\
+                                              ,b_vals[starts[it]]/b_vals[starts[it]-int(scale)]\
+                                             )
+            counters[it] = counters[it]+1
+    
+    for it, scale in enumerate(time_scales):
+        axes[it+1].plot_date(x = dates ,y=p_returns[it], fmt='-k',marker=None,label='portfolio return({d}-days)'.format(d=scale))
+        axes[it+1].plot_date(x = dates ,y=b_returns[it], fmt='--r',marker=None,label='benchmark return({d}-days)'.format(d=scale))
+        axes[it+1].plot_date(x = dates ,y=[1.]*len(dates), fmt='-y',marker=None,alpha=0.4)
+        axes[it+1].legend(loc='center left', bbox_to_anchor=(1, 0.5))
+    
     fig.autofmt_xdate(rotation=45)
-    return fig, ax
+    return fig, axes
 
 def get_MDD(data:pd.DataFrame, asset:str='portfolio_value', start:datetime.date=None, end:datetime.date=None):
     if asset != 'portfolio_value' and asset != 'benchmark_value':
