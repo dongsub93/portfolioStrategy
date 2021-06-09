@@ -19,9 +19,15 @@ import gc
 #storage_dir ='./98_analysis_maxSR'
 #tag_fmt = 'maxSR_{t}ua{ua}_rp{rp}_lp{lp}_rg{rg}'
 #strategy='maxSR'
-storage_dir ='./96_analysis_momentum'
-tag_fmt = 'momentum_{t}ua{ua}_rp{rp}_lp{lp}_rg{rg}'
-strategy='momentum'
+
+#storage_dir ='./96_analysis_momentum'
+#tag_fmt = 'momentum_{t}ua{ua}_rp{rp}_lp{lp}_rg{rg}'
+#strategy='momentum'
+
+storage_dir ='./95_analysis_momentum_linear'
+tag_fmt = 'momentum_linear_{t}ua{ua}_rp{rp}_lp{lp}_rg{rg}'
+strategy='momentum_linear'
+
 for tag in ['','no-reits_','no-cb_','no-reits_no-cb_']:
 #for tag in ['no-reits_no-cb_']:
     for ua in [0,1]:
