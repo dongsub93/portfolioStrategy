@@ -35,24 +35,24 @@ There are three directories for now(2021.07.15.) as follow.
 
 We left detailed description of them.
 
-  (1.0) 00_data
-           |- 0_marketList : Having the files in which list of securities in KOSPI are saved.
-           |- 1_pricesData : Having data of daily prices of securities and ETF. Also it has data of risk-free interest.
-               |- 0_riskFree : Having information about risk-free interest 
-               |- 1_ETF      : Having price information of some ETFs.
-               |- 2_stock    : Having price information of some stocks.
+  1.0 00_data
+           - 0_marketList : Having the files in which list of securities in KOSPI are saved.
+           - 1_pricesData : Having data of daily prices of securities and ETF. Also it has data of risk-free interest.
+               -- 0_riskFree : Having information about risk-free interest 
+               -- 1_ETF      : Having price information of some ETFs.
+               -- 2_stock    : Having price information of some stocks.
                
-  (1.1) 01_main_scripts           
-           |- analysis_functions.py : Definition of some functions relevant for analysis of portfolio history is written
-           |- aux_functions.py      : Helpful functions are defined.
-           |- crawler.py            : Functions for web-crawling are defined.
-           |- porfolio.py           : (class)'porfolio' is defined.
+  1.1 01_main_scripts           
+           - analysis_functions.py : Definition of some functions relevant for analysis of portfolio history is written
+           - aux_functions.py      : Helpful functions are defined.
+           - crawler.py            : Functions for web-crawling are defined.
+           - porfolio.py           : (class)'porfolio' is defined.
            
-  (1.2) 02_analysis_codes
-           |- example_fig.png         : Example output(figure) from 'porfolio_example.py'
-           |- example_history.csv     : Example output(backtest history in .csv format) from 'porfolio_example.py'
-           |- portfolio_example.ipynb : Example script for Jupyter
-           |- portfolio_example.py    : Example python script
+  1.2 02_analysis_codes
+           - example_fig.png         : Example output(figure) from 'porfolio_example.py'
+           - example_history.csv     : Example output(backtest history in .csv format) from 'porfolio_example.py'
+           - portfolio_example.ipynb : Example script for Jupyter
+           - portfolio_example.py    : Example python script
            
         
            
