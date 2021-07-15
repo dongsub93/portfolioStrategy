@@ -57,4 +57,38 @@ We left detailed description of them.
         
            
 ----------------------------------
-2. Usage
+2. Implemented strategies
+
+  - momentum strategy
+
+     It is traditional momentum strategy.
+     
+     In this strategy, the weight on each asset is determined by returns of itself during certain period, which is called look-back period.
+     
+     You can also reject or include the asset with negative yield during the look-back perios.
+     
+     Currently only the long-position portfolio is embeded.
+     
+     
+  - maximise-Sharpe-ratio strategy
+
+     It maximise combined Sharpe ratio from given underlying assets during the look-back period by adjusting the weights of them.
+     
+     As one can analytically find a optimal weights of two assets giving the maximum Sharpe ratio, it itererates all underlying assets and find the optimal weights giving the maximum Sharpe ratio.
+     
+     Again long-only portfolio is implemented.
+     
+     
+  - fixed-weight strategy
+  
+    It is a well-known fixed-weight strategy.
+    
+    A user can input a list of weights, then the strategy rebalance the weights depending on the price(or mean-price during the look-back period).
+    
+    The long-only portfolio is possible.
+
+
+----------------------------------
+3. Example and usage
+
+See [02_analysis_codes/porfolio_example.py] or [02_analysis_codes/porfolio_example.ipynb] as example.
