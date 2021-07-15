@@ -1,0 +1,328 @@
+Try to download 0-th stock, 383800
+Try to download 1-th stock, 375500
+Try to download 2-th stock, 352820
+Try to download 3-th stock, 326030
+Try to download 4-th stock, 272210
+Try to download 5-th stock, 013890
+Imin, Imax :  0  ,  10
+shape :  (10, 7)
+minD, maxD :  2000-05-04  ,  2000-03-09
+diff date :  56 days, 0:00:00
+diff days :  30 days, 0:00:00
+before : Imax =  10
+after  : Imax =  5
+get_price: From 013890, detected huge separation between adjacent price data between 2000.03.15 and 2000.04.28.
+           It will drop the data earlier than 2000.04.28.
+get_price: From 013890, detected 15-to-1 split between 2005.05.06 and 2005.05.09
+Try to download 6-th stock, 336260
+Try to download 7-th stock, 003670
+get_price: From 003670, detected 10-to-1 split between 2015.04.30 and 2015.05.04
+Try to download 8-th stock, 192080
+Try to download 9-th stock, 316140
+Try to download 10-th stock, 294870
+Try to download 11-th stock, 018250
+Try to download 12-th stock, 068270
+Try to download 13-th stock, 284740
+get_price: From 284740, detected 5-to-1 split between 2019.05.03 and 2019.05.07
+Try to download 14-th stock, 285130
+Try to download 15-th stock, 282330
+Try to download 16-th stock, 035720
+Imin, Imax :  0  ,  10
+shape :  (10, 7)
+minD, maxD :  2000-04-28  ,  2000-03-03
+diff date :  56 days, 0:00:00
+diff days :  30 days, 0:00:00
+before : Imax =  10
+after  : Imax =  1
+get_price: From 035720, detected huge separation between adjacent price data between 2000.03.15 and 2000.04.28.
+           It will drop the data earlier than 2000.04.28.
+get_price: From 035720, detected 5-to-1 split between 2021.04.14 and 2021.04.15
+Try to download 17-th stock, 271560
+Try to download 18-th stock, 251270
+Try to download 19-th stock, 267250
+get_price: From 267250, detected 5-to-1 split between 2021.04.12 and 2021.04.13
+Try to download 20-th stock, 241560
+Try to download 21-th stock, 207940
+Try to download 22-th stock, 241590
+get_price: From 241590, detected 2-to-1 split between 2018.06.07 and 2018.06.08
+Try to download 23-th stock, 026960
+get_price: From 026960, detected 2-to-1 split between 2013.11.26 and 2013.11.27
+get_price: From 026960, detected 2-to-1 split between 2012.11.27 and 2012.11.28
+get_price: From 026960, detected 10-to-1 split between 2003.06.26 and 2003.06.27
+Try to download 24-th stock, 079550
+Try to download 25-th stock, 214320
+Try to download 26-th stock, 028260
+Try to download 27-th stock, 112610
+get_price: From 112610, detected 2-to-1 split between 2021.02.05 and 2021.02.08
+Try to download 28-th stock, 018260
+Try to download 29-th stock, 204320
+get_price: From 204320, detected 5-to-1 split between 2018.05.04 and 2018.05.08
+Try to download 30-th stock, 192400
+Try to download 31-th stock, 192820
+Try to download 32-th stock, 185750
+Try to download 33-th stock, 064350
+Try to download 34-th stock, 180640
+Try to download 35-th stock, 161890
+Try to download 36-th stock, 161390
+Try to download 37-th stock, 007070
+Try to download 38-th stock, 145990
+Try to download 39-th stock, 031430
+Try to download 40-th stock, 047810
+Try to download 41-th stock, 071840
+Try to download 42-th stock, 139480
+Try to download 43-th stock, 138930
+Try to download 44-th stock, 020150
+Try to download 45-th stock, 011210
+Try to download 46-th stock, 081660
+get_price: From 081660, detected 5-to-1 split between 2018.05.08 and 2018.05.09
+Try to download 47-th stock, 057050
+Try to download 48-th stock, 128940
+Try to download 49-th stock, 032830
+Try to download 50-th stock, 088350
+Try to download 51-th stock, 120110
+Try to download 52-th stock, 115390
+Try to download 53-th stock, 052690
+Try to download 54-th stock, 114090
+Try to download 55-th stock, 034730
+Try to download 56-th stock, 000080
+Try to download 57-th stock, 039490
+Try to download 58-th stock, 111770
+Try to download 59-th stock, 108670
+Try to download 60-th stock, 105630
+Try to download 61-th stock, 035420
+get_price: From 035420, detected 5-to-1 split between 2018.10.11 and 2018.10.12
+get_price: From 035420, detected 3-to-1 split between 2006.07.13 and 2006.07.14
+get_price: From 035420, detected 2-to-1 split between 2004.02.25 and 2004.02.26
+Try to download 62-th stock, 105560
+Try to download 63-th stock, 103140
+Try to download 64-th stock, 011070
+Try to download 65-th stock, 032640
+Try to download 66-th stock, 020560
+Imin, Imax :  0  ,  10
+shape :  (10, 7)
+minD, maxD :  2000-04-28  ,  2000-03-03
+diff date :  56 days, 0:00:00
+diff days :  30 days, 0:00:00
+before : Imax =  10
+after  : Imax =  1
+get_price: From 020560, detected huge separation between adjacent price data between 2000.03.15 and 2000.04.28.
+           It will drop the data earlier than 2000.04.28.
+Try to download 67-th stock, 051600
+Try to download 68-th stock, 097950
+Try to download 69-th stock, 028670
+Try to download 70-th stock, 096770
+Try to download 71-th stock, 029780
+Try to download 72-th stock, 093370
+Try to download 73-th stock, 090430
+get_price: From 090430, detected 10-to-1 split between 2015.05.07 and 2015.05.08
+Try to download 74-th stock, 032350
+Try to download 75-th stock, 023530
+Try to download 76-th stock, 086280
+Try to download 77-th stock, 086790
+Try to download 78-th stock, 073240
+Try to download 79-th stock, 079160
+Try to download 80-th stock, 078930
+Try to download 81-th stock, 034220
+Try to download 82-th stock, 024110
+Imin, Imax :  0  ,  10
+shape :  (10, 7)
+minD, maxD :  2000-05-01  ,  2000-03-06
+diff date :  56 days, 0:00:00
+diff days :  30 days, 0:00:00
+before : Imax =  10
+after  : Imax =  2
+get_price: From 024110, detected huge separation between adjacent price data between 2000.03.15 and 2000.04.28.
+           It will drop the data earlier than 2000.04.28.
+Try to download 83-th stock, 035250
+get_price: From 035250, detected 10-to-1 split between 2003.10.31 and 2003.11.03
+Try to download 84-th stock, 071050
+Try to download 85-th stock, 036570
+get_price: From 036570, detected 3-to-1 split between 2003.07.29 and 2003.07.30
+Try to download 86-th stock, 069960
+Try to download 87-th stock, 069620
+Try to download 88-th stock, 069260
+get_price: From 069260, detected 2-to-1 split between 2010.09.02 and 2010.09.03
+Try to download 89-th stock, 009240
+Try to download 90-th stock, 066570
+Try to download 91-th stock, 064960
+Try to download 92-th stock, 055550
+Try to download 93-th stock, 021240
+Imin, Imax :  0  ,  10
+shape :  (10, 7)
+minD, maxD :  2000-04-28  ,  2000-03-03
+diff date :  56 days, 0:00:00
+diff days :  30 days, 0:00:00
+before : Imax =  10
+after  : Imax =  1
+get_price: From 021240, detected huge separation between adjacent price data between 2000.03.15 and 2000.04.28.
+           It will drop the data earlier than 2000.04.28.
+Try to download 94-th stock, 051900
+Try to download 95-th stock, 051910
+Try to download 96-th stock, 047040
+Try to download 97-th stock, 047050
+Try to download 98-th stock, 042660
+get_price: From 042660, detected 2-to-1 split between 2017.10.27 and 2017.10.30
+Try to download 99-th stock, 042670
+Try to download 100-th stock, 049770
+Try to download 101-th stock, 034020
+Try to download 102-th stock, 036460
+Try to download 103-th stock, 033780
+Try to download 104-th stock, 009540
+Try to download 105-th stock, 006650
+Try to download 106-th stock, 030200
+Try to download 107-th stock, 030000
+get_price: From 030000, detected 26-to-1 split between 2010.05.07 and 2010.05.10
+Try to download 108-th stock, 011790
+get_price: From 011790, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 109-th stock, 000660
+Try to download 110-th stock, 028050
+get_price: From 028050, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 111-th stock, 012630
+Try to download 112-th stock, 018880
+get_price: From 018880, detected 5-to-1 split between 2016.02.15 and 2016.02.16
+get_price: From 018880, detected 10-to-1 split between 2004.05.10 and 2004.05.11
+get_price: From 018880, detected 7-to-1 split between 1996.12.27 and 1997.01.03
+Try to download 113-th stock, 020000
+get_price: From 020000, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 114-th stock, 017800
+get_price: From 017800, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 115-th stock, 012750
+get_price: From 012750, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+get_price: From 012750, detected 12-to-1 split between 1999.12.17 and 1999.12.20
+Try to download 116-th stock, 011200
+Try to download 117-th stock, 007310
+Try to download 118-th stock, 010120
+Try to download 119-th stock, 014820
+Try to download 120-th stock, 010140
+Try to download 121-th stock, 008560
+get_price: From 008560, detected 5-to-1 split between 2008.07.04 and 2008.07.07
+Try to download 122-th stock, 011170
+Try to download 123-th stock, 008770
+Try to download 124-th stock, 010130
+Try to download 125-th stock, 019170
+get_price: From 019170, detected 9-to-1 split between 2011.05.03 and 2011.05.04
+Try to download 126-th stock, 009420
+get_price: From 009420, detected 10-to-1 split between 2006.05.08 and 2006.05.09
+Try to download 127-th stock, 009410
+get_price: From 009410, detected 2-to-1 split between 2020.09.21 and 2020.09.22
+get_price: From 009410, detected 10-to-1 split between 2007.04.30 and 2007.05.02
+Try to download 128-th stock, 017670
+get_price: From 017670, detected 14-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 129-th stock, 012330
+Try to download 130-th stock, 001450
+get_price: From 001450, detected 10-to-1 split between 2004.07.09 and 2004.07.12
+Try to download 131-th stock, 005440
+get_price: From 005440, detected 10-to-1 split between 2010.05.12 and 2010.05.13
+get_price: From 005440, detected 2-to-1 split between 2002.11.22 and 2002.11.25
+Try to download 132-th stock, 015760
+Try to download 133-th stock, 006280
+Try to download 134-th stock, 014680
+Try to download 135-th stock, 003850
+get_price: From 003850, detected 5-to-1 split between 2018.04.27 and 2018.04.30
+get_price: From 003850, detected 2-to-1 split between 2010.04.28 and 2010.04.29
+Try to download 136-th stock, 003000
+get_price: From 003000, detected 10-to-1 split between 1998.07.10 and 1998.07.11
+Try to download 137-th stock, 008930
+get_price: From 008930, detected 5-to-1 split between 2012.05.11 and 2012.05.14
+Try to download 138-th stock, 005490
+Try to download 139-th stock, 001230
+Try to download 140-th stock, 016360
+get_price: From 016360, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 141-th stock, 011780
+Try to download 142-th stock, 004490
+get_price: From 004490, detected 9-to-1 split between 2000.03.31 and 2000.04.03
+Try to download 143-th stock, 010950
+get_price: From 010950, detected 2-to-1 split between 2001.11.30 and 2001.12.03
+Try to download 144-th stock, 012450
+get_price: From 012450, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 145-th stock, 004020
+Try to download 146-th stock, 016380
+Try to download 147-th stock, 010780
+get_price: From 010780, detected 10-to-1 split between 2008.06.18 and 2008.06.19
+get_price: From 010780, detected 4-to-1 split between 2005.09.14 and 2005.09.15
+Try to download 148-th stock, 004170
+get_price: From 004170, detected 2-to-1 split between 2011.01.31 and 2011.02.01
+Try to download 149-th stock, 010060
+Try to download 150-th stock, 000720
+Try to download 151-th stock, 007700
+get_price: From 007700, detected 2-to-1 split between 2021.05.20 and 2021.05.21
+get_price: From 007700, detected 2-to-1 split between 2002.02.27 and 2002.02.28
+get_price: From 007700, detected 9-to-1 split between 2000.06.02 and 2000.06.05
+Try to download 152-th stock, 010620
+get_price: From 010620, detected 2-to-1 split between 2018.12.03 and 2018.12.04
+get_price: From 010620, detected 2-to-1 split between 2000.03.15 and 2000.04.28
+Try to download 153-th stock, 006360
+Try to download 154-th stock, 006400
+Try to download 155-th stock, 009150
+Try to download 156-th stock, 005180
+Try to download 157-th stock, 005250
+get_price: From 005250, detected 9-to-1 split between 2011.05.03 and 2011.05.04
+Try to download 158-th stock, 008350
+get_price: From 008350, detected 9-to-1 split between 2009.10.12 and 2009.10.13
+get_price: From 008350, detected 3-to-1 split between 2002.11.08 and 2002.11.11
+Try to download 159-th stock, 006260
+Try to download 160-th stock, 001740
+get_price: From 001740, detected 2-to-1 split between 2004.12.30 and 2005.01.03
+Try to download 161-th stock, 004370
+Try to download 162-th stock, 006120
+get_price: From 006120, detected 2-to-1 split between 2018.01.04 and 2018.01.05
+Try to download 163-th stock, 000880
+Try to download 164-th stock, 001060
+get_price: From 001060, detected 2-to-1 split between 2008.05.02 and 2008.05.06
+Try to download 165-th stock, 000670
+Try to download 166-th stock, 002350
+get_price: From 002350, detected 10-to-1 split between 2008.03.19 and 2008.03.20
+Try to download 167-th stock, 004000
+Try to download 168-th stock, 000210
+Try to download 169-th stock, 001120
+Try to download 170-th stock, 003240
+Try to download 171-th stock, 006390
+get_price: From 006390, detected 2-to-1 split between 2014.04.18 and 2014.04.21
+Try to download 172-th stock, 000990
+Try to download 173-th stock, 005940
+Try to download 174-th stock, 006800
+Try to download 175-th stock, 000810
+Try to download 176-th stock, 003230
+Try to download 177-th stock, 001800
+get_price: From 001800, detected 20-to-1 split between 2017.07.06 and 2017.07.07
+Try to download 178-th stock, 005930
+get_price: From 005930, detected 50-to-1 split between 2018.05.03 and 2018.05.04
+Try to download 179-th stock, 003410
+get_price: From 003410, detected 5-to-1 split between 2018.07.10 and 2018.07.11
+get_price: From 003410, detected 2-to-1 split between 1999.05.19 and 1999.05.20
+Try to download 180-th stock, 005610
+Try to download 181-th stock, 007570
+get_price: From 007570, detected 2-to-1 split between 2006.07.05 and 2006.07.06
+Try to download 182-th stock, 005380
+Try to download 183-th stock, 009830
+Try to download 184-th stock, 004990
+get_price: From 004990, detected 3-to-1 split between 2017.10.27 and 2017.10.30
+get_price: From 004990, detected 9-to-1 split between 2016.05.16 and 2016.05.17
+Try to download 185-th stock, 000270
+Try to download 186-th stock, 004800
+get_price: From 004800, detected 2-to-1 split between 2018.07.12 and 2018.07.13
+Try to download 187-th stock, 001040
+get_price: From 001040, detected 2-to-1 split between 2007.09.27 and 2007.09.28
+Try to download 188-th stock, 000150
+Try to download 189-th stock, 005830
+Try to download 190-th stock, 003090
+get_price: From 003090, detected 5-to-1 split between 2017.05.17 and 2017.05.18
+Try to download 191-th stock, 003520
+get_price: From 003520, detected 10-to-1 split between 2004.03.03 and 2004.03.04
+Try to download 192-th stock, 002380
+Try to download 193-th stock, 005300
+get_price: From 005300, detected 10-to-1 split between 2019.05.02 and 2019.05.03
+Try to download 194-th stock, 002790
+get_price: From 002790, detected 10-to-1 split between 2015.05.07 and 2015.05.08
+Try to download 195-th stock, 001680
+get_price: From 001680, detected 2-to-1 split between 1999.03.31 and 1999.04.01
+Try to download 196-th stock, 003550
+Try to download 197-th stock, 000070
+Try to download 198-th stock, 000240
+get_price: From 000240, detected 2-to-1 split between 2012.10.02 and 2012.10.04
+get_price: From 000240, detected 2-to-1 split between 1999.05.20 and 1999.05.21
+get_price: From 000240, detected 10-to-1 split between 1998.07.31 and 1998.08.01
+Try to download 199-th stock, 003490
+Try to download 200-th stock, 000100
+get_price: From 000100, detected 4-to-1 split between 2020.04.07 and 2020.04.08
+Try to download 201-th stock, 000120
